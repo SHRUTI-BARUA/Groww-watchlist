@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: groww-watchlist-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node src/server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: DB_PATH
+        value: /tmp/data.sqlite
+      - key: DATA_PROVIDER
+        value: groww
+      - key: POLL_INTERVAL_MS
+        value: 4000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        sync: false

@@ -9,7 +9,8 @@ const wsHub = require('./ws/hub');
 const poller = require('./worker/poller');
 
 const app = express();
-app.use(cors());
+const corsOrigin = process.env.CORS_ORIGIN || '*';
+app.use(cors({ origin: corsOrigin, credentials: true }));
 app.use(express.json());
 
 app.get('/health', (req, res) => res.json({ ok: true, ts: Date.now() }));
@@ -31,5 +32,5 @@ poller.start();
 const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => {
   console.log(`Smart Watchlist backend listening on :${PORT}`);
-  console.log(`WebSocket endpoint: ws://localhost:${PORT}/ws`);
+  console.log(`WebSocket endpoint: ws://0.0.0.0:${PORT}/ws`);
 });
